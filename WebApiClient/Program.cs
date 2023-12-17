@@ -6,7 +6,7 @@ namespace WebApiClient
 {
     internal class Program
     {
-        static async void Main(string[] args)
+        static async Task Main(string[] args)
         {
             using HttpClient client = new();
             client.DefaultRequestHeaders.Accept.Clear();
@@ -17,7 +17,11 @@ namespace WebApiClient
             await ProcessRepositoriesAsync(client);
 
             static async Task ProcessRepositoriesAsync(HttpClient client)
-            { 
+            {
+                var json = await client.GetStringAsync(
+                    "https://api.github.com/orgs/dotnet/repos");
+
+                Console.Write(json);
             }
         }
     }
