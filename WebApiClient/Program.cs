@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Net.Http.Headers;
+using System.Text.Json;
 
 
 namespace WebApiClient
@@ -18,10 +19,13 @@ namespace WebApiClient
 
             static async Task ProcessRepositoriesAsync(HttpClient client)
             {
-                var json = await client.GetStringAsync(
-                    "https://api.github.com/orgs/dotnet/repos");
+                await using Stream stream =
+                    await client.GetStreamAsync("http://api.github.com/orgs/dotnet/repos");
+                var repositories =
+                    await JsonSerializer.DeserializeAsync<List<Repository>>(stream);
 
-                Console.Write(json);
+                foreach (var repo in repositories ?? Enumerable.Empty<Repository>())
+                    Console.WriteLine(repo.name);
             }
         }
     }
