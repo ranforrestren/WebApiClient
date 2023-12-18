@@ -16,9 +16,16 @@ namespace WebApiClient
             client.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
 
             var repositories = await ProcessRepositoriesAsync(client);
-            
+
             foreach (var repo in repositories)
-                Console.WriteLine(repo.Name);
+            {
+                Console.WriteLine($"Name: {repo.Name}");
+                Console.WriteLine($"Homepage: {repo.Homepage}");
+                Console.WriteLine($"Github: {repo.GitHubHomeUrl}");
+                Console.WriteLine($"Description: {repo.Description}");
+                Console.WriteLine($"Watchers: {repo.Watchers}");
+                Console.WriteLine();
+            }
         }
 
         static async Task<List<Repository>> ProcessRepositoriesAsync(HttpClient client)
