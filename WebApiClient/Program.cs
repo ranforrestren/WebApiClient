@@ -24,6 +24,7 @@ namespace WebApiClient
                 Console.WriteLine($"Github: {repo.GitHubHomeUrl}");
                 Console.WriteLine($"Description: {repo.Description}");
                 Console.WriteLine($"Watchers: {repo.Watchers}");
+                Console.WriteLine($"Last push: {repo.LastPush}");
                 Console.WriteLine();
             }
         }
